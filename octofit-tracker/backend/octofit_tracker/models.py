@@ -1,23 +1,28 @@
 from djongo import models
 
 class User(models.Model):
+    _id = models.ObjectIdField(primary_key=True)
+    username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255)
-    age = models.IntegerField()
+    password = models.CharField(max_length=100)
 
 class Team(models.Model):
-    name = models.CharField(max_length=255)
+    _id = models.ObjectIdField(primary_key=True)
+    name = models.CharField(max_length=100)
     members = models.ArrayField(model_container=User)
 
 class Activity(models.Model):
+    _id = models.ObjectIdField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.CharField(max_length=255)
-    duration = models.IntegerField()
+    activity_type = models.CharField(max_length=100)
+    duration = models.DurationField()
 
 class Leaderboard(models.Model):
+    _id = models.ObjectIdField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
 
 class Workout(models.Model):
-    name = models.CharField(max_length=255)
+    _id = models.ObjectIdField(primary_key=True)
+    name = models.CharField(max_length=100)
     description = models.TextField()
